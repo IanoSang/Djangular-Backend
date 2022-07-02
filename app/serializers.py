@@ -20,7 +20,17 @@ class MovieSerializer(serializers.HyperlinkedModelSerializer):
         model = Movie
         fields = [
             'url',
+            'id',
             'title',
             'desc',
             'year'
+        ]
+
+
+class MovieMinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = [
+            'id',
+            'title',
         ]
