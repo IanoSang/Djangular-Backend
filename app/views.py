@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer, MovieSerializer
+from .serializers import UserSerializer, GroupSerializer, MovieSerializer, MovieMinSerializer
 from .models import Movie
+from rest_framework.response import Response
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,3 +31,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
+    def list(self, request, *args, **kwargs):
+        movies = Movie.objects.all()
+        serializer = MovieMinSerializer(movies, many=True)
+        return Response(serializer.data)
